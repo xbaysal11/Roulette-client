@@ -1,25 +1,62 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ws from "./services/ws";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.changeFirstName = this.changeFirstName.bind(this);
+    this.changeLastName = this.changeLastName.bind(this);
+    this.auth = this.auth.bind(this);
+  }
+
+  state = {
+    firstName: "",
+    lastName: "",
+    users: []
+  };
+
+  componentDidMount() {
+    ws.on("CHANGE_USERS_LIST", data => {
+      this.setState({
+        users: data.users
+      });
+    });
+  }
+
+  startRun() {
+    ws.emit("START");
+  }
+
+  changeFirstName(event) {
+    this.setState({
+      firstName: event.target.value
+    });
+  }
+
+  changeLastName(event) {
+    this.setState({
+      lastName: event.target.value
+    });
+  }
+
+  auth() {
+    ws.emit("AUTH", this.state);
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <input
+          type="text"
+          placeholder="firstName"
+          onChange={this.changeFirstName}
+        />
+        <input
+          type="text"
+          placeholder="lastName"
+          onChange={this.changeLastName}
+        />
+        <button onClick={this.auth}>Auth</button>
       </div>
     );
   }
