@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import ws from "./services/ws";
+import Navbar from "./components/Header";
+import "./App.sass";
+import Content from "./components/Content";
 
 class App extends Component {
   constructor() {
@@ -46,7 +49,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <input
+        <Navbar />
+
+        {/* <input
           type="text"
           placeholder="firstName"
           onChange={this.changeFirstName}
@@ -56,7 +61,8 @@ class App extends Component {
           placeholder="lastName"
           onChange={this.changeLastName}
         />
-        <button onClick={this.auth}>Auth</button>
+        <button onClick={this.auth}>Auth</button> */}
+        <Content />
       </div>
     );
   }
