@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Header.sass";
-import logo from "../img/roulettekg.png";
+import logo from "../../img/roulettekg.png";
 
 class Header extends Component {
   render() {

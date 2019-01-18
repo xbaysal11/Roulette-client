@@ -1,21 +1,28 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "./UserList.sass";
 
 class UserList extends Component {
+  static propTypes = {
+    users: PropTypes.array.isRequired
+  };
+
   render() {
+    const { users } = this.props;
     return (
       <div className="userlist">
         <div className="roomTitle">
           <h3>Users in Room</h3>
         </div>
         <div>
-          <p className="amount">total: 2</p>
-          <div>
-            <h5>1. ADMIN Adminov</h5>
-          </div>
-          <div>
-            <h5>2. USER Userov</h5>
-          </div>
+          <p className="amount">total: {users.length}</p>
+          {users.map((u, idx) => (
+            <div>
+              <h5>
+                {idx + 1}. {u.firstName} {u.lastName}
+              </h5>
+            </div>
+          ))}
           <div className="input">
             <h3>Invite Your Friends!!!</h3>
             <input
