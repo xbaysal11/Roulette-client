@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <div className="header">
         <img src={logo} />
-        <button className="out">Sign Out</button>
+        <button className="out">Log out</button>
       </div>
     );
   }
