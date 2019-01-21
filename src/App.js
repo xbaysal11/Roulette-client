@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import ws from "./services/ws";
-import Navbar from "./components/Header";
+import {
+  Header,
+  Content,
+  UsersList,
+  Chat,
+  RouletteCircle,
+  Login
+} from "./components";
 import "./App.sass";
-import Content from "./components/Content";
 
 class App extends Component {
   constructor() {
     super();
-    this.changeFirstName = this.changeFirstName.bind(this);
-    this.changeLastName = this.changeLastName.bind(this);
-    this.auth = this.auth.bind(this);
+    this.onLoginHandler = this.onLoginHandler.bind(this);
   }
 
   state = {
-    firstName: "",
-    lastName: "",
+    me: null,
     users: []
   };
 
@@ -26,43 +29,27 @@ class App extends Component {
     });
   }
 
-  startRun() {
-    ws.emit("START");
-  }
-
-  changeFirstName(event) {
+  onLoginHandler(user) {
     this.setState({
-      firstName: event.target.value
+      me: user
     });
-  }
-
-  changeLastName(event) {
-    this.setState({
-      lastName: event.target.value
-    });
-  }
-
-  auth() {
-    ws.emit("AUTH", this.state);
   }
 
   render() {
     return (
       <div className="App">
-        <Navbar />
-
-        {/* <input
-          type="text"
-          placeholder="firstName"
-          onChange={this.changeFirstName}
-        />
-        <input
-          type="text"
-          placeholder="lastName"
-          onChange={this.changeLastName}
-        />
-        <button onClick={this.auth}>Auth</button> */}
-        <Content />
+        <Header />
+        <Content>
+          {this.state.me ? (
+            <>
+              <UsersList users={this.state.users} />
+              <RouletteCircle />
+              <Chat />
+            </>
+          ) : (
+            <Login onLogin={this.onLoginHandler} />
+          )}
+        </Content>
       </div>
     );
   }
