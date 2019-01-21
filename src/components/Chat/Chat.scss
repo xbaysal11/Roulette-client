@@ -1,0 +1,36 @@
+.chat {
+  background: -moz-linear-gradient(-45deg, #2d3961 0%, #181f35 100%);
+  background: -webkit-linear-gradient(-45deg, #2d3961 0%, #181f35 100%);
+  background: linear-gradient(135deg, #2d3961 0%, #181f35 100%);
+  width: 300px;
+  height: 600px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+  padding: 0 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  .chatTitle {
+    border-bottom: 1px #7195fc solid;
+    text-align: center;
+  }
+  .input {
+    position: absolute;
+    bottom: 30px;
+  }
+  .chatlist {
+    flex-grow: 1;
+    overflow: scroll;
+    .msg {
+      min-height: 80px;
+      border: none;
+      background: #2a365d;
+      h5 {
+        padding-top: 15px;
+      }
+      .say {
+        font-size: 13px;
+        padding: 5% 5% 5% 15%;
+        color: #dbe8ff;
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+.userlist {
+  background-image: linear-gradient(
+    to right top,
+    #181f35,
+    #181f35,
+    #181f35,
+    #181f35,
+    #181f35,
+    #1a2139,
+    #1b233c,
+    #1d2540,
+    #212a48,
+    #252f50,
+    #293459,
+    #2d3961
+  );
+  width: 300px;
+  height: 600px;
+  padding: 0 10px 0 10px;
+  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.4);
+
+  .roomTitle {
+    border-bottom: 1px #7195fc solid;
+    text-align: center;
+  }
+
+  .amount {
+    text-align: right;
+    color: lime;
+  }
+
+  .users_list {
+    .user_list_item {
+      img {
+        float: left;
+        height: 30px;
+      }
+      h5 {
+        padding-top: 15px;
+      }
+    }
+  }
+
+  .input {
+    position: absolute;
+    bottom: 30px;
+    .invite {
+      padding-left: 25%;
+      color: #646464;
+    }
+  }
+}

@@ -1,41 +1,101 @@
-import React, { Component } from "react";
-import "./Chat.sass";
-import client1 from "../img/client-1.jpg";
-import client2 from "../img/client-2.jpg";
-import client3 from "../img/client-3.jpg";
+import React, { Component, createRef } from "react";
+import "./Chat.scss";
+import client1 from "../../img/client-1.jpg";
+import sound_new_msg from "../../sounds/msg.mp3";
+import ws from "../../services/ws";
+
+const Massage = ({ user_id, text, first_name, last_name }) => (
+  <div className="msg">
+    <img src={client1} alt="!" />
+    <h5>
+      {first_name} {last_name}
+    </h5>
+    <p className="say">{text}</p>
+  </div>
+);
 
 class Chat extends Component {
+  constructor() {
+    super();
+    this.scroll_elem = createRef();
+  }
+
+  state = {
+    message: "",
+    messages: []
+  };
+
+  playSound(){
+    this.audio_element.play()
+  }
+
+  componentDidMount() {
+    this.audio_element = new Audio(sound_new_msg);
+    ws.on("NEW_MESSAGE", data => {
+      this.setState(
+        {
+          messages: [...this.state.messages, data]
+        },
+        () => {
+          this.scrollToEnd();
+          this.playSound();
+        }
+      );
+    });
+    ws.on("NEW_MESSAGE_ALL", data => {
+      this.setState(
+        {
+          messages: data.messages
+        },
+        () => {
+          this.scrollToEnd();
+        }
+      );
+    });
+    ws.emit("GET_MESSAGE_ALL");
+  }
+
+  scrollToEnd = () => {
+    this.scroll_elem.current.scrollTo(0, 999999);
+  };
+
+  handleChange = event => {
+    this.setState({
+      message: event.target.value
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    if (!this.state.message) return;
+    ws.emit("POST_MESSAGE", {
+      message: this.state.message
+    });
+    this.setState({
+      message: ""
+    });
+  };
+
   render() {
     return (
       <div className="chat">
         <div className="chatTitle">
           <h3>Room's Chat</h3>
         </div>
-        <div className="chatlist">
-          <div className="msg">
-            <img src={client1} />
-            <h5>ADMIN Adminov : </h5>
-            <p className="say">Hello Guys!</p>
-          </div>
-          <div className="msg">
-            <img src={client2} />
-            <h5>USER Userov : </h5>
-            <p className="say">Hi!!!</p>
-          </div>
-          <div className="msg">
-            <img src={client3} />
-            <h5>PLAYER Playerov : </h5>
-            <p className="say"> Est nisi qui duis laboris reprehenderit laboris ad Lorem. Est enim officia et laboris ex tempor officia aute non ipsum duis ad ipsum. Eiusmod adipisicing Lorem est ex consequat enim proident minim veniam. Officia consectetur sint nostrud aliqua cillum mollit enim quis tempor officia adipisicing adipisicing non. Ipsum magna ea dolor aliqua in excepteur. Ut anim exercitation ut proident officia commodo deserunt aliqua.</p>
-          </div>
-          <div className="input">
-            <input
-              type="text"
-              placeholder="Message"
-              // onChange={this.changeLastName}
-            />
-            <button>Send!</button>
-          </div>
+        <div className="chatlist" ref={this.scroll_elem}>
+          {this.state.messages.map(m => (
+            <Massage {...m} />
+          ))}
         </div>
+        <form className="input" onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            placeholder="Message"
+            value={this.state.message}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Send!</button>
+        </form>
       </div>
     );
   }

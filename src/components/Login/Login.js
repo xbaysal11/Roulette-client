@@ -9,13 +9,13 @@ class Login extends Component {
 
   constructor() {
     super();
-    this.changeFirstName = this.changeFirstName.bind(this);
-    this.changeLastName = this.changeLastName.bind(this);
+    this.changefirst_name = this.changefirst_name.bind(this);
+    this.changelast_name = this.changelast_name.bind(this);
     this.auth = this.auth.bind(this);
   }
   state = {
-    firstName: "",
-    lastName: ""
+    first_name: "",
+    last_name: ""
   };
 
   componentDidMount() {
@@ -24,19 +24,20 @@ class Login extends Component {
     });
   }
 
-  changeFirstName(event) {
+  changefirst_name(event) {
     this.setState({
-      firstName: event.target.value
+      first_name: event.target.value
     });
   }
 
-  changeLastName(event) {
+  changelast_name(event) {
     this.setState({
-      lastName: event.target.value
+      last_name: event.target.value
     });
   }
 
   auth() {
+    if (!this.state.first_name || !this.state.last_name) return;
     ws.emit("AUTH", this.state);
   }
 
@@ -46,14 +47,14 @@ class Login extends Component {
         <input
           type="text"
           placeholder="First Name: "
-          value={this.props.firstName}
-          onChange={this.changeFirstName}
+          value={this.props.first_name}
+          onChange={this.changefirst_name}
         />
         <input
           type="text"
           placeholder="First Name: "
-          value={this.props.lastName}
-          onChange={this.changeLastName}
+          value={this.props.last_name}
+          onChange={this.changelast_name}
         />
         <button onClick={this.auth}>login</button>
       </div>
