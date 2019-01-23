@@ -25,7 +25,7 @@ class UserList extends Component {
           <h3>Users in Room</h3>
         </div>
         <p className="amount">total: {users.length}</p>
-        <div class="users_list">
+        <div className="users_list">
           {users.map((u, idx) => (
             <User {...u} key={u.id} idx={idx} />
           ))}

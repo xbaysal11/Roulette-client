@@ -86,8 +86,8 @@ class Chat extends Component {
           <h3>Room's Chat</h3>
         </div>
         <div className="chatlist" ref={this.scroll_elem}>
-          {this.state.messages.map(m => (
-            <Massage {...m} />
+          {this.state.messages.map((m, idx) => (
+            <Massage {...m} key={idx} />
           ))}
         </div>
         <div className="container">
