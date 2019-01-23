@@ -1,0 +1,68 @@
+$background: #f5f6fa;
+$text: #9c9c9c;
+$input-bg-color: #fff;
+$input-text-color: #a3a3a3;
+$button-bg-color: #7f8ff4;
+$button-text-color: #fff;
+
+@font-face {
+  font-family: "regular";
+  src: url("./fonts/Circe-Regular.ttf");
+}
+
+body {
+  font-family: "regular";
+  margin: 0;
+  padding: 0;
+  .App {
+    background-image: linear-gradient(
+      to bottom,
+      #2d3961,
+      #273256,
+      #222c4a,
+      #1d2540,
+      #181f35
+    );
+    height: 100vh;
+    color: #fff;
+  }
+
+  button {
+    outline: 0;
+    cursor: pointer;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    text-transform: uppercase;
+    background: #7165f6;
+    border-radius: none;
+    border: none;
+    margin: 5px;
+    height: 4vh;
+    width: 17%;
+    color: #fff;
+
+    &:hover {
+      background: darken($button-bg-color, 4%);
+    }
+
+    &:active {
+      background: $button-bg-color;
+      box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  input {
+    color: #fff;
+    background: #4a42a6;
+    border-radius: 2px;
+    height: 3vh;
+    width: 75%;
+    border: 0;
+    padding: 5px;
+    outline: 0;
+
+    &::placeholder {
+      color: #adbcee;
+    }
+  }
+}

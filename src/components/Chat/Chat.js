@@ -7,9 +7,12 @@ import ws from "../../services/ws";
 const Massage = ({ user_id, text, first_name, last_name }) => (
   <div className="msg">
     <img src={client1} alt="!" />
-    <h5>
-      {first_name} {last_name}
-    </h5>
+    <div className="title">
+      <h5>
+        {first_name} {last_name}
+      </h5>
+      <div className="time">13:22</div>
+    </div>
     <p className="say">{text}</p>
   </div>
 );
@@ -25,8 +28,8 @@ class Chat extends Component {
     messages: []
   };
 
-  playSound(){
-    this.audio_element.play()
+  playSound() {
+    this.audio_element.play();
   }
 
   componentDidMount() {
@@ -87,15 +90,22 @@ class Chat extends Component {
             <Massage {...m} />
           ))}
         </div>
-        <form className="input" onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            placeholder="Message"
-            value={this.state.message}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Send!</button>
-        </form>
+        <div className="container">
+          <form className="input form" onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              placeholder="Message"
+              value={this.state.message}
+              onChange={this.handleChange}
+            />
+            <button
+              type="submit"
+              className="btn btn--primary btn--inside uppercase"
+            >
+              Send!
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

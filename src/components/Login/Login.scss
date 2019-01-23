@@ -1,0 +1,88 @@
+body {
+  .auth {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    margin-top: 5%;
+    img {
+      height: 150px;
+      width: 150px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 10%;
+      border-radius: 50%;
+    }
+    input {
+      font-size: 16px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #ffffff;
+      background: none;
+      ::placeholder {
+        color: #adbcee;
+        font-size: 16px;
+      }
+    }
+
+    .space {
+      height: 3px;
+      margin-bottom: 10%;
+
+      @keyframes gradient {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 100% 0;
+        }
+      }
+
+      background: linear-gradient(
+        to right,
+        #b294ff,
+        #57e6e6,
+        #feffb8,
+        #57e6e6,
+        #b294ff,
+        #57e6e6
+      );
+      animation: gradient 3s linear infinite;
+      background-size: 500% auto;
+    }
+
+    .button {
+      height: 35px;
+      width: 255px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 4px;
+      color: #ffffff;
+      text-align: center;
+      font-size: 24px;
+      transition: all 0.5s;
+
+      &:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+      &:hover span {
+        padding-right: 25px;
+      }
+      span {
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+
+        &:after {
+          content: "\00bb";
+          position: absolute;
+          opacity: 0;
+          top: 0;
+          right: -20px;
+          transition: 0.5s;
+        }
+      }
+    }
+  }
+}

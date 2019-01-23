@@ -30,7 +30,7 @@ class UserList extends Component {
             <User {...u} key={u.id} idx={idx} />
           ))}
         </div>
-        <div className="input">
+        <form className="link">
           <h4 className="invite">Invite Your Friends!!!</h4>
           <input
             type="text"
@@ -39,7 +39,7 @@ class UserList extends Component {
             // onChange={this.changelast_name}
           />
           <button>Copy!</button>
-        </div>
+        </form>
       </div>
     );
   }

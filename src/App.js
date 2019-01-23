@@ -8,7 +8,7 @@ import {
   RouletteCircle,
   Login
 } from "./components";
-import "./App.sass";
+import "./App.scss";
 
 class App extends Component {
   constructor() {

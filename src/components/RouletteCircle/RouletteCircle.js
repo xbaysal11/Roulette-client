@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./RouletteCircle.sass";
+import "./RouletteCircle.scss";
 
 class RouletteCircle extends Component {
   render() {

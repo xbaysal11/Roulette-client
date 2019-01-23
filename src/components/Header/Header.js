@@ -1,13 +1,23 @@
 import React, { Component } from "react";
-import "./Header.sass";
-import logo from "../../img/roulettekg.png";
+import "./Header.scss";
+import logo from "../../img/logo1.png";
+import client1 from "../../img/client-1.jpg";
 
 class Header extends Component {
   render() {
     return (
       <div className="header">
-        <img src={logo} />
-        <button className="out">Log out</button>
+        <div className="pic">
+          <img src={logo} alt="" />
+        </div>
+        <div className="dropdown">
+          <img className="dropbtn" src={client1} alt="" />
+          <div className="dropdown-content">
+            <p>id: </p>
+            <p>User: </p>
+            <button type="text">Log out</button>
+          </div>
+        </div>
       </div>
     );
   }

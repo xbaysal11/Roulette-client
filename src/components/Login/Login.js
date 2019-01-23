@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ws from "../../services/ws";
-import "./Login.sass";
+import "./Login.scss";
+import client1 from "../../img/client-1.jpg";
+
 class Login extends Component {
   static propTypes = {
     onLogin: PropTypes.func.isRequired
@@ -43,20 +45,25 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="auth">
+        <img src={client1} alt="" />
         <input
           type="text"
-          placeholder="First Name: "
+          placeholder="Name: "
           value={this.props.first_name}
           onChange={this.changefirst_name}
         />
+        <div className="space" />
         <input
           type="text"
-          placeholder="First Name: "
+          placeholder="Surname: "
           value={this.props.last_name}
           onChange={this.changelast_name}
         />
-        <button onClick={this.auth}>login</button>
+        <div className="space" />
+        <button className="button" onClick={this.auth}>
+          <span>Login</span>
+        </button>
       </div>
     );
   }
