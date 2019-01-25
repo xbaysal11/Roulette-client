@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Stage, Layer, Rect, Text } from "react-konva";
+import { Stage, Layer, Rect, Text, Circle } from "react-konva";
+import { coordsUtils } from "../../util";
 // import { Util } from "konva";
 import "./RouletteCircle.scss";
 
@@ -15,7 +16,7 @@ class RouletteCircle extends Component {
 
   startRotate() {
     this.setState({
-      r: this.state.r + 15
+      r: this.state.r + 5
     });
     requestAnimationFrame(this.startRotate);
   }
@@ -29,18 +30,17 @@ class RouletteCircle extends Component {
   render() {
     return (
       <div className="roulette">
-        <Stage width={600} height={530}>
+        <Stage width={600} height={540}>
           <Layer>
-            <Rect
-              rotation={this.state.r}
-              fill={"#00f"}
-              width={200}
-              height={200}
-              x={320}
-              y={250}
-              shadowBlur={5}
-              offset={{ x: 100, y: 100 }}
-            />
+            {coordsUtils.getCoords(this.props.users.length).map(([x, y], idx) => (
+              <Circle
+                key={idx}
+                x={x * 150 + 270}
+                y={y * 150 + 270}
+                radius={50}
+                fill="blue"
+              />
+            ))}
           </Layer>
         </Stage>
         <div>

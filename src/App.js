@@ -43,7 +43,7 @@ class App extends Component {
           {this.state.me ? (
             <>
               <UsersList users={this.state.users} />
-              <RouletteCircle />
+              <RouletteCircle users={this.state.users} />
               <Chat />
             </>
           ) : (
