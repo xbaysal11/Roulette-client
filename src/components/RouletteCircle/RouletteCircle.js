@@ -11,7 +11,7 @@ class RouletteCircle extends Component {
 
   state = {
     r: 0
-  };  
+  };
 
   startRotate() {
     this.setState({
@@ -29,12 +29,11 @@ class RouletteCircle extends Component {
   render() {
     return (
       <div className="roulette">
-        <Stage width={600} height={550}>
+        <Stage width={600} height={530}>
           <Layer>
-            <Text text="Try click on rect" />
             <Rect
               rotation={this.state.r}
-              fill={"#f00"}
+              fill={"#00f"}
               width={200}
               height={200}
               x={320}

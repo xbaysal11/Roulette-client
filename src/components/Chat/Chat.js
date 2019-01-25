@@ -3,6 +3,7 @@ import "./Chat.scss";
 import client1 from "../../img/client-1.jpg";
 import sound_new_msg from "../../sounds/msg.mp3";
 import ws from "../../services/ws";
+import Clock from "react-live-clock";
 
 const Massage = ({ user_id, text, first_name, last_name }) => (
   <div className="msg">
@@ -11,7 +12,9 @@ const Massage = ({ user_id, text, first_name, last_name }) => (
       <h5>
         {first_name} {last_name}
       </h5>
-      <div className="time">13:22</div>
+      <div className="time">
+        <Clock format={"HH:mm:ss"} ticking={false} timezone={"KG/Pacific"} />
+      </div>
     </div>
     <p className="say">{text}</p>
   </div>

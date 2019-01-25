@@ -49,6 +49,13 @@ $button-text-color: #fff;
     padding: 0;
 
     .user_list_item {
+      animation: newuser 2s 0s;
+      @keyframes newuser {
+        to {
+          color: #4ff83f;
+        }
+      }
+
       margin: 0;
       padding: 0;
       img {

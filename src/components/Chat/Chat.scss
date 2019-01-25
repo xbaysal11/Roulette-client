@@ -60,6 +60,20 @@
       min-height: 80px;
       border: none;
       background: #2a365d;
+      animation: cssAnimation 0s 0.3s forwards, newmsg 2.5s 0s;
+      visibility: hidden;
+      @keyframes cssAnimation {
+        to {
+          visibility: visible;
+        }
+      }
+      // animation: ;
+      @keyframes newmsg {
+        to {
+          background: #0dac69;
+        }
+      }
+
       transition: width 2s;
 
       .title {
@@ -81,10 +95,8 @@
         box-shadow: 5px 5px 40px black;
       }
       h5 {
-        margin: 0;
+        margin: 5% 0 0 7%;
         font-size: 16px;
-        padding: 5% 0 0 7%;
-        display: flex;
       }
       .say {
         font-size: 14px;
