@@ -38,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header id={this.state.user} />
         <Content>
           {this.state.me ? (
             <>
