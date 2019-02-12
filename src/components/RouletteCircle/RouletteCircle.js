@@ -1,106 +1,116 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import PropTypes from "prop-types";
 import { Stage, Layer, Wedge, Circle, Rect, Group } from "react-konva";
 import { coordsUtils } from "../../util";
 import fillPath from "../../img/client-1.jpg";
 // import { Util } from "konva";
+import ws from "../../services/ws";
 import "./RouletteCircle.scss";
 
-class RouletteCircle extends Component {
-  constructor() {
-    super();
-    this.startRotate = this.startRotate.bind(this);
-  }
+const image = new window.Image();
+image.src = fillPath;
 
-  state = {
-    image: null,
-    rotation: 100,
-    angularSpeed: 90
-  };
+const Avatar = ({ x, y, id }) => (
+    <Circle
+        key={id}
+        x={x}
+        y={y}
+        radius={30}
+        shadowBlur={20}
+        stroke="black"
+        strokeWidth={2}
+        fillPatternImage={image}
+        offset={{ x: 100, y: 100 }}
+    />
+);
 
-  startRotate() {
-    this.setState({
-      r: this.state.r + 5
-    });
-    requestAnimationFrame(this.startRotate);
-  }
-
-  componentDidMount() {
-    this.startRotate();
-
-    const image = new window.Image();
-    image.onload = () => {
-      this.setState({
-        image
-      });
-    };
-    image.src = fillPath;
-  }
-
-  componentWillUnmount() {}
-
-  rotate() {
-    this.setState({
-      rotation: this.state.rotation + 100
-    });
-    this.rotate();
-  }
-
-  render() {
+const c_offset = { x: 300, y: 300 };
+const Сylinder = ({ users, active }) => {
+    const [rotate, setRotate] = useState(0);
+    if (active) {
+        requestAnimationFrame(setRotate);
+    }
     return (
-      <div className="roulette">
-        <Stage width={600} height={535}>
-          <Layer>
-            <Group>
-              <Circle
-                x={310}
-                y={240}
-                radius={190}
-                rotation={100}
-                width={500}
-                height={500}
-                fill="black"
-                // rotation={this.state.r}
-                // fillPatternImage={this.state.image}
-                opacity={0.2}
-                // offset={{ x: 400, y: 100 }}
-              />
-              {coordsUtils
-                .getCoords(this.props.users.length)
-                .map(([x, y], idx) => (
-                  <Circle
-                    key={idx}
-                    x={x * 150 + 420}
-                    y={y * 150 + 300}
-                    radius={30}
-                    shadowBlur={20}
-                    // rotation={this.state.r}
-                    stroke="black"
-                    strokeWidth={2}
-                    fillPatternImage={this.state.image}
-                    offset={{ x: 100, y: 100 }}
-                  />
-                ))}
-              {/* </Circle> */}
-            </Group>
-            <Wedge
-              x={310}
-              y={410}
-              radius={50}
-              angle={50}
-              fill="green"
-              stroke="black"
-              strokeWidth={2}
-              rotation={63}
-            />
-          </Layer>
-        </Stage>
-        <div>
-          <button className="spin" onClick={this.rotate}>
-            Spin!
-          </button>
-        </div>
-      </div>
+        <Group
+            key="group"
+            width={600}
+            height={600}
+            rotation={rotate}
+            offset={c_offset}
+            x={300}
+            y={300}
+        >
+            <Circle x={300} y={300} radius={250} fill="black" opacity={0.2} />
+            {coordsUtils.getCoords(users.length).map(([x, y], idx) => (
+                <Avatar
+                    idx={users[idx].id}
+                    x={x * 150 + 350}
+                    y={y * 150 + 350}
+                    id={users[idx].id}
+                />
+            ))}
+        </Group>
     );
-  }
+};
+
+class RouletteCircle extends Component {
+    static propTypes = {
+        users: PropTypes.array.isRequired
+    };
+
+    constructor() {
+        super();
+        this.startGame = this.startGame.bind(this);
+        this.startRotate = this.startRotate.bind(this);
+        this.stopRotate = this.stopRotate.bind(this);
+    }
+
+    state = {
+        active: false
+    };
+
+    componentDidMount() {
+        this.startListening();
+    }
+
+    startListening() {
+        ws.on("START_GAME", this.startRotate);
+        ws.on("END_GAME", this.stopRotate);
+    }
+
+    startGame() {
+        ws.emit("POST_START_GAME");
+    }
+
+    startRotate() {
+        this.setState({
+            active: true
+        });
+    }
+
+    stopRotate() {
+        this.setState({
+            active: false
+        });
+    }
+
+    render() {
+        const { users } = this.props;
+        const { active } = this.state;
+        return (
+            <div className="roulette">
+                <Stage width={600} height={600}>
+                    <Layer>
+                        <Сylinder users={users} active={active} />
+                    </Layer>
+                </Stage>
+                <div>
+                    <button className="spin" onClick={this.startGame}>
+                        Spin!
+                    </button>
+                </div>
+            </div>
+        );
+    }
 }
 export default RouletteCircle;

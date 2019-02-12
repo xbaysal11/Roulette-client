@@ -5,96 +5,100 @@ $input-bg-color: #fff;
 $input-text-color: #a3a3a3;
 $button-bg-color: #7f8ff4;
 $button-text-color: #fff;
+$yellow: #FEC93E;
 
 .userlist {
-  background-image: linear-gradient(
-    to right top,
-    #181f35,
-    #181f35,
-    #181f35,
-    #181f35,
-    #181f35,
-    #1a2139,
-    #1b233c,
-    #1d2540,
-    #212a48,
-    #252f50,
-    #293459,
-    #2d3961
-  );
-  width: 23%;
-  height: 86vh;
-  padding: 0 10px 0 10px;
-  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
+    background-image: linear-gradient(
+        to right top,
+        #181f35,
+        #181f35,
+        #181f35,
+        #181f35,
+        #181f35,
+        #1a2139,
+        #1b233c,
+        #1d2540,
+        #212a48,
+        #252f50,
+        #293459,
+        #2d3961
+    );
+    width: 23%;
+    height: 86vh;
+    padding: 0 10px 0 10px;
+    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
 
-  .roomTitle {
-    border-bottom: 1px #7195fc solid;
-    text-align: center;
-  }
+    .roomTitle {
+        border-bottom: 1px #7195fc solid;
+        text-align: center;
+    }
 
-  .amount {
-    margin: 0;
-    padding: 0;
-    text-align: right;
-    color: lime;
-  }
+    .amount {
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        color: lime;
+    }
 
-  .users_list {
-    flex-grow: 1;
-    overflow: auto;
-    scroll-behavior: smooth;
-    margin: 0;
-    padding: 0;
+    .users_list {
+        flex-grow: 1;
+        overflow: auto;
+        scroll-behavior: smooth;
+        margin: 0;
+        padding: 0;
 
-    .user_list_item {
-      animation: newuser 2s 0s;
-      @keyframes newuser {
-        to {
-          color: #4ff83f;
+        .user_list_item {
+            animation: newuser 2s 0s;
+            @keyframes newuser {
+                to {
+                    color: #4ff83f;
+                }
+            }
+
+            margin: 0;
+            padding: 0;
+            img {
+                height: 35px;
+                width: 35px;
+                float: left;
+                // margin: 5px;
+                border-radius: 50%;
+                border: 2px solid #7195fc;
+                box-shadow: 5px 5px 20px black;
+            }
+            h5 {
+                padding: 4% 0 0 20%;
+            }
+            &.admin {
+                color: $yellow;
+            }
         }
-      }
+    }
+    .link {
+        border-top: 1px #7195fc solid;
+        margin: 10px 0px;
 
-      margin: 0;
-      padding: 0;
-      img {
-        height: 35px;
-        width: 35px;
-        float: left;
-        // margin: 5px;
-        border-radius: 50%;
-        border: 2px solid #7195fc;
-        box-shadow: 5px 5px 20px black;
-      }
-      h5 {
-        padding: 4% 0 0 20%;
-      }
-    }
-  }
-  .link {
-    border-top: 1px #7195fc solid;
-    margin: 10px 0px;
+        // position: absolute;
+        // bottom: 30px;
+        // height: 76vh;
 
-    // position: absolute;
-    // bottom: 30px;
-    // height: 76vh;
-
-    button {
-      margin-left: -12%;
-      cursor: pointer;
+        button {
+            margin-left: -12%;
+            cursor: pointer;
+        }
+        input {
+            box-shadow: 0 60px 100px 0 rgba(0, 0, 0, 0.1);
+            border: 0;
+            outline: 0;
+            padding: 4% 11% 4% 6%;
+        }
+        .invite {
+            padding: 0;
+            margin: 0;
+            padding-left: 25%;
+            color: #c2c2c2;
+        }
     }
-    input {
-      box-shadow: 0 60px 100px 0 rgba(0, 0, 0, 0.1);
-      border: 0;
-      outline: 0;
-      padding: 4% 11% 4% 6%;
-    }
-    .invite {
-      padding: 0;
-      margin: 0;
-      padding-left: 25%;
-      color: #c2c2c2;
-    }
-  }
 }
