@@ -8,6 +8,10 @@ import {
     createMessagesGetAll,
     createMessagesPost
 } from "../../store/actions/messages_actions";
+import {
+    getMessagesFromState,
+    getMessagesStatusFromState
+} from "../../store/getters/messages_getters";
 
 import Clock from "react-live-clock";
 import client1 from "../../img/client-1.jpg";
@@ -45,6 +49,7 @@ Massage.propTypes = {
 class Chat extends Component {
     static propTypes = {
         messages: PT.array.isRequired,
+        status: PT.string.isRequired,
         getAll: PT.func.isRequired,
         postMessage: PT.func.isRequired
     };
@@ -121,7 +126,8 @@ class Chat extends Component {
 }
 export default connect(
     state => ({
-        messages: state.messages
+        messages: getMessagesFromState(state),
+        status: getMessagesStatusFromState(state)
     }),
     dispatch => ({
         getAll: bindActionCreators(createMessagesGetAll, dispatch),
