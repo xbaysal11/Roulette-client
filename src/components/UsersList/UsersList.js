@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import PT from "prop-types";
+import { connect } from "react-redux";
 import CN from "classnames";
-import PropTypes from "prop-types";
 import "./UserList.scss";
 import client1 from "../../img/client-1.jpg";
 
@@ -12,10 +13,16 @@ const User = ({ first_name, last_name, idx, is_admin }) => (
         </h5>
     </div>
 );
+User.propTypes = {
+    first_name: PT.string.isRequired,
+    last_name: PT.string.isRequired,
+    idx: PT.number.isRequired,
+    is_admin: PT.bool.isRequired
+};
 
 class UserList extends Component {
     static propTypes = {
-        users: PropTypes.array.isRequired
+        users: PT.array.isRequired
     };
 
     render() {
@@ -45,4 +52,5 @@ class UserList extends Component {
         );
     }
 }
-export default UserList;
+
+export default connect(state => ({ users: state.users }))(UserList);

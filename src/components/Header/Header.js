@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import PT from "prop-types";
 import "./Header.scss";
 import logo from "../../img/logo1.png";
 import client1 from "../../img/client-1.jpg";
 
 class Header extends Component {
     static propTypes = {
-        users: PropTypes.array.isRequired
+        users: PT.array.isRequired,
+        user_id: PT.number
     };
     render() {
-        const { users } = this.props;
         return (
             <div className="header">
                 <div className="pic">

@@ -8,7 +8,28 @@ import {
     RouletteCircle,
     Login
 } from "./components";
+import store from "./store";
+import { createUpdateUserList } from "./store/actions/users_actions";
+import {
+    createMessagesNewMessage,
+    createMessageNewMessagesAll
+} from "./store/actions/messages_actions";
+import { Provider } from "react-redux";
 import "./App.scss";
+
+const addWsListeners = () => {
+    ws.on("CHANGE_USERS_LIST", data => {
+        store.dispatch(createUpdateUserList(data.users));
+    });
+
+    ws.on("NEW_MESSAGE", data => {
+        store.dispatch(createMessagesNewMessage(data));
+    });
+
+    ws.on("NEW_MESSAGE_ALL", data => {
+        store.dispatch(createMessageNewMessagesAll(data));
+    });
+};
 
 class App extends Component {
     constructor() {
@@ -17,17 +38,11 @@ class App extends Component {
     }
 
     state = {
-        me: null,
-        users: []
+        me: null
     };
 
     componentDidMount() {
-        ws.on("CHANGE_USERS_LIST", data => {
-            console.log("CHANGE_USERS_LIST");
-            this.setState({
-                users: data.users
-            });
-        });
+        addWsListeners();
     }
 
     onLoginHandler(user) {
@@ -38,20 +53,22 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <Header id={this.state.user} />
-                <Content>
-                    {this.state.me ? (
-                        <>
-                            <UsersList users={this.state.users} />
-                            <RouletteCircle users={this.state.users} />
-                            <Chat />
-                        </>
-                    ) : (
-                        <Login onLogin={this.onLoginHandler} />
-                    )}
-                </Content>
-            </div>
+            <Provider store={store}>
+                <div className="App">
+                    <Header id={this.state.user} />
+                    <Content>
+                        {this.state.me ? (
+                            <>
+                                <UsersList />
+                                <RouletteCircle users={[]} />
+                                <Chat />
+                            </>
+                        ) : (
+                            <Login onLogin={this.onLoginHandler} />
+                        )}
+                    </Content>
+                </div>
+            </Provider>
         );
     }
 }

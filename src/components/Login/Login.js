@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import PT from "prop-types";
 import ws from "../../services/ws";
 import AvatarInput from "./AvatarInput";
 import "./Login.scss";
-import client1 from "../../img/client-1.jpg";
 
 class Login extends Component {
     static propTypes = {
-        onLogin: PropTypes.func.isRequired
+        onLogin: PT.func.isRequired,
+        first_name: PT.string.isRequired,
+        last_name: PT.string.isRequired
     };
 
     constructor() {
